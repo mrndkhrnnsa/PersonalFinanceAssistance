@@ -1,6 +1,6 @@
 ## Personal Finance Assistant
 
-** – Aplikasi manajemen keuangan pribadi berbasis Streamlit**
+**Aplikasi manajemen keuangan pribadi berbasis Streamlit**
 
 ---
 
