@@ -8,6 +8,8 @@ import requests
 import re
 from app_utils import load_csv, save_budget_csv, get_historical_average_by_category
 
+api_key = st.secrets["openrouter"]["api_key"]
+
 st.header("🧮 Pengaturan Anggaran")
 
 SUBCATEGORIES = ["Makanan", "Transport", "Belanja", "Hiburan", "Tabungan", "Lainnya"]
@@ -44,8 +46,7 @@ if st.button("Hasilkan Anggaran AI"):
             "Buat anggaran bulanan yang masuk akal. Hanya gunakan kategori: Makanan, Transport, Belanja, Hiburan, Tabungan, Lainnya."
             "Jawab dalam format tabel markdown dan gunakan Bahasa Indonesia."
         )
-
-        api_key = "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"
+        
         headers = {
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
