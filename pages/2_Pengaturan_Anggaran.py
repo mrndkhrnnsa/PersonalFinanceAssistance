@@ -103,8 +103,14 @@ if st.button("Hasilkan Anggaran AI"):
             st.success("Anggaran dari AI sudah jadi! Ubah sesuai kebutuhan dan simpan ya.")
         else:
             st.warning("⚠️ Oops! Anggaran dari AI belum bisa dibaca. Silakan revisi atau coba lagi.")
+            response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data)
+            st.write("Status code:", response.status_code)
+            st.write("Response:", response.text)
     else:
         st.error("❌ Oops! AI lagi bingung dan belum bisa menjawab. Coba ulangi beberapa saat lagi ya.")
+        response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data)
+        st.write("Status code:", response.status_code)
+        st.write("Response:", response.text)
 
 if "budget_inputs" in st.session_state:
     st.markdown("✏️ Nilai di bawah bisa kamu sesuaikan sebelum disimpan:")
