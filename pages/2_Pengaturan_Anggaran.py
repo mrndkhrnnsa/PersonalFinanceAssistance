@@ -48,7 +48,8 @@ if st.button("Hasilkan Anggaran AI"):
         api_key = "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"
         headers = {
             "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://personal-finance-assistance.streamlit.app"
         }
         data = {
             "model": 'deepseek/deepseek-chat-v3-0324',
