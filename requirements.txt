@@ -1,7 +1,5 @@
 streamlit
 pandas
 requests
-re
-calendar
 numpy
 plotly
