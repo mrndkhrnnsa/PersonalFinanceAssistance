@@ -8,6 +8,7 @@ import requests
 import re
 from app_utils import load_csv, save_budget_csv, get_historical_average_by_category
 
+# Load OpenRouter API key from Streamlit secrets
 api_key = st.secrets["openrouter"]["api_key"]
 
 st.header("🧮 Pengaturan Anggaran")
@@ -19,19 +20,27 @@ category_map = {
     "savings": "Tabungan", "tabungan": "Tabungan", "other": "Lainnya", "misc": "Lainnya", "lainnya": "Lainnya"
 }
 
-# Calculate budget based on historical averages and user input
+# Load and preprocess transaction data safely
 transactions_df = load_csv()
-transactions_df["Tanggal"] = pd.to_datetime(transactions_df["Tanggal"], errors="coerce")
+transactions_df = transactions_df.copy()  # avoid chained assignment warning
+
+# Use .loc for explicit column assignment
+transactions_df.loc[:, "Tanggal"] = pd.to_datetime(transactions_df["Tanggal"], errors="coerce")
+
+# Calculate historical averages
 historical_averages = get_historical_average_by_category(transactions_df, SUBCATEGORIES, months_back=100)
+
 monthly_income = 0
 if not transactions_df.empty:
-    income_per_month = (
-        transactions_df[transactions_df["Kategori"] == "Pendapatan"]
-        .groupby(transactions_df["Tanggal"].dt.to_period("M"))["Jumlah (Rp)"]
-        .sum()
-    )
-    if not income_per_month.empty:
-        monthly_income = income_per_month.mean()
+    # Copy filtered df to avoid warnings
+    pendapatan_df = transactions_df[transactions_df["Kategori"] == "Pendapatan"].copy()
+    if not pendapatan_df.empty:
+        income_per_month = (
+            pendapatan_df.groupby(pendapatan_df["Tanggal"].dt.to_period("M"))["Jumlah (Rp)"]
+            .sum()
+        )
+        if not income_per_month.empty:
+            monthly_income = income_per_month.mean()
 
 savings_goal = st.number_input("Target Total Tabungan (Rp)", min_value=0, step=50000)
 free_text_goal = st.text_area("Catatan Tambahan (misal: 'kurangi pengeluaran makanan', 'nabung untuk liburan')")
@@ -65,7 +74,6 @@ if st.button("Hasilkan Anggaran AI"):
 
         parsed_budget = {}
         parsed_percentages = {}
-        in_table = False
         for line in ai_text.splitlines():
             if re.match(r"\s*\|", line) and not re.match(r"\s*\|[\s\-|]+\|", line):
                 cols = [c.strip(" *") for c in line.strip().split("|")[1:-1]]
@@ -104,12 +112,10 @@ if st.button("Hasilkan Anggaran AI"):
             st.success("Anggaran dari AI sudah jadi! Ubah sesuai kebutuhan dan simpan ya.")
         else:
             st.warning("⚠️ Oops! Anggaran dari AI belum bisa dibaca. Silakan revisi atau coba lagi.")
-            response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data)
             st.write("Status code:", response.status_code)
             st.write("Response:", response.text)
     else:
         st.error("❌ Oops! AI lagi bingung dan belum bisa menjawab. Coba ulangi beberapa saat lagi ya.")
-        response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data)
         st.write("Status code:", response.status_code)
         st.write("Response:", response.text)
 
