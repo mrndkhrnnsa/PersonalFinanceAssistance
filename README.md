@@ -2,7 +2,7 @@
 
 **Aplikasi manajemen keuangan pribadi berbasis Streamlit**
 
----
+(Proyek ini diajukan sebagai persyaratan akhir untuk AI Python Bootcamp di Skill Academy oleh Ruangguru)
 
 ### 📝 **Deskripsi:**
 
@@ -14,8 +14,6 @@ Dalam kehidupan sehari-hari, banyak orang kesulitan melacak pengeluaran dan pema
 * Mengelola anggaran bulanan
 * Menganalisis keuangan secara visual
 
----
-
 ### 🌟 **Fitur-Fitur Utama**
 
 1. **Beranda** – Tampilan selamat datang dengan informasi pengantar.
@@ -23,7 +21,9 @@ Dalam kehidupan sehari-hari, banyak orang kesulitan melacak pengeluaran dan pema
 3. **Pengaturan Anggaran** – Mengatur dan mendapatkan saran anggaran bulanan dengan bantuan AI.
 4. **Analisis Keuangan** – Visualisasi grafik untuk memantau pendapatan, pengeluaran, dan selisih bulanan.
 
----
+## **Coba Aplikasi di Streamlit**
+
+Anda dapat mencoba aplikasi streamlit di sini: https://personal-finance-assistance.streamlit.app
 
 ### ⚙️ **Cara Menjalankan di Lokal**
 
