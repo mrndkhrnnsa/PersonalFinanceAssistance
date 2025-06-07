@@ -21,9 +21,9 @@ Dalam kehidupan sehari-hari, banyak orang kesulitan melacak pengeluaran dan pema
 3. **Pengaturan Anggaran** – Mengatur dan mendapatkan saran anggaran bulanan dengan bantuan AI.
 4. **Analisis Keuangan** – Visualisasi grafik untuk memantau pendapatan, pengeluaran, dan selisih bulanan.
 
-## **Coba Aplikasi di Streamlit**
+### **Coba Aplikasi di Streamlit**
 
-Anda dapat mencoba aplikasi streamlit di sini: https://personal-finance-assistance.streamlit.app
+Coba aplikasinya lansgung di streamlit: https://personal-finance-assistance.streamlit.app
 
 ### ⚙️ **Cara Menjalankan di Lokal**
 
